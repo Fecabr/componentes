@@ -1,4 +1,3 @@
-import 'package:componentes/src/pages/alert_page.dart';
 import 'package:componentes/src/providers/menu_provider.dart';
 import 'package:componentes/src/utils/icono_string_util.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Componentes'),
+        centerTitle: true,
       ),
       body: _lista(),
     );
@@ -18,6 +18,8 @@ class HomePage extends StatelessWidget {
 Widget _lista() {
   return FutureBuilder(
     future: menuProvider.cargarData(),
+    //La data inicial va a hacer un lista vacia, que es el valor que se le va a enviar
+    //a snaphot.data, simper vamo a tener algo en el data.
     initialData: [],
     builder: (contex, AsyncSnapshot<List<dynamic>> snaphot) {
       return ListView(
@@ -29,6 +31,9 @@ Widget _lista() {
 
 List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
   final List<Widget> opciones = [];
+
+  //Validamos si la data esta vacio
+
   data.forEach((opt) {
     final widgetTemp = ListTile(
       title: Text(opt['texto']),
